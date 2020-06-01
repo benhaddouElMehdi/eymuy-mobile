@@ -2,6 +2,8 @@ import React from 'react' // N'oubliez pas l'import de React ici. On en a besoin
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -10,6 +12,8 @@ import Orders from '../screens/Orders'
 import Restaurants from '../screens/Restaurants'
 import Scan from '../screens/Scan'
 import Account from '../screens/Account'
+import Catalog from '../screens/Catalog'
+
 
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
@@ -18,6 +22,15 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
+
+const ScanStackNavigator = createStackNavigator({
+  Scan: {
+    screen: Scan
+  },
+  Catalog: {
+    screen: Catalog
+  }
+})
 
 
 const EyumyTabNavigator = createBottomTabNavigator({
@@ -40,7 +53,7 @@ const EyumyTabNavigator = createBottomTabNavigator({
     }
   },
   Scan: {
-    screen: Scan,
+    screen: ScanStackNavigator,
     navigationOptions: {
       tabBarLabel: 'Scan',
       tabBarIcon: ({ tintColor }) => (
@@ -70,7 +83,7 @@ const EyumyTabNavigator = createBottomTabNavigator({
   }
 }, {
     tabBarOptions: {
-      activeTintColor: 'red',
+      activeTintColor: 'orange',
       inactiveTintColor: 'grey',
       style: {
         backgroundColor: 'white',

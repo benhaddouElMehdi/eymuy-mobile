@@ -9,7 +9,7 @@ class Account extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Profile</Text>
+                <Text>Account</Text>
             </View>
         );
     }
