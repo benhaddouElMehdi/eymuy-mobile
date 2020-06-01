@@ -8,6 +8,55 @@ import {
 
 import { catalog } from '../infra/Catalog-infra'
 
+import { StatusBar } from "react-native";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { enableScreens } from "react-native-screens";
+
+import {
+  LoadAssets,
+  StyleGuide,
+  assets as componentAssets,
+} from "../components";
+import UberEats, {
+  assets as uberEatsAssets,
+  fonts as uberEatsFonts,
+} from "../UberEats";
+
+
+enableScreens();
+
+const fonts = { ...uberEatsFonts};
+const assets: number[] = [
+  ...uberEatsAssets,
+  ...componentAssets,
+];
+
+
+const AppNavigator = createAppContainer(
+  createStackNavigator(
+    {
+      UberEats: {
+        screen: UberEats,
+        navigationOptions: {
+          title: "Uber Eats",
+          header: () => null,
+        },
+      },
+    },
+    {
+      defaultNavigationOptions: {
+        headerStyle: {
+          backgroundColor: StyleGuide.palette.primary,
+          borderBottomWidth: 0,
+        },
+        headerTintColor: "white",
+      },
+    }
+  )
+);
+
 class Catalog extends Component {
 
   constructor(props) {
@@ -26,47 +75,21 @@ class Catalog extends Component {
   }
 
   render() {
-      return (
-          <View style={styles.container}>
-              <Text>Catalog</Text>
-            { this.state.dataSource != undefined  &&
-              <FlatList
-                data={this.state.dataSource.menus}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => (
-                   <View>
-                    <Text>{item.id.toString()}</Text>
-                    <Text> {item.label}</Text>
-                    <Text>{item.description}</Text>
-                    <Text>Items : </Text>
+     console.log("-----------CATALOG--------")
 
-                    <FlatList
-                      data={item.items}
-                      keyExtractor={(item) => item.reference.toString()}
-                      renderItem={({item}) => (
-                         <View>
-                          <Text>{item.reference}</Text>
-                          <Text> {item.label}</Text>
-                          <Text>{item.description}</Text>
-                          <Text>******</Text>
+     if(this.state.dataSource != undefined)
+       return (
+              <UberEats catalog={this.state.dataSource}/>
+       );
 
-                         </View>
-                      )}
-                    />
-
-                    <Text>----------------------------------</Text>
+   else {
+     return null;
+   }
 
 
 
 
-
-                   </View>
-                )}
-              />
-           }
-          </View>
-      );
-  }
+    }
   }
 export default Catalog;
 
