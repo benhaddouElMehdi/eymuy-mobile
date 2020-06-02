@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useValue, withTimingTransition } from "react-native-redash";
-import { Feather as Icon } from "@expo/vector-icons";
+import Feather from 'react-native-vector-icons/Feather'
 import { useSafeArea } from "react-native-safe-area-context";
 
 import { useNavigation } from "react-navigation-hooks";
@@ -80,11 +80,11 @@ export default ({ y, tabs, scrollView }: HeaderProps) => {
       <View style={styles.header}>
         <TouchableWithoutFeedback onPress={() => goBack()}>
           <View>
-            <Icon name="arrow-left" size={ICON_SIZE} color="white" />
+            <Feather name="arrow-left" size={ICON_SIZE} color="white" />
             <Animated.View
               style={{ ...StyleSheet.absoluteFillObject, opacity: transition }}
             >
-              <Icon name="arrow-left" size={ICON_SIZE} color="black" />
+              <Feather name="arrow-left" size={ICON_SIZE} color="black" />
             </Animated.View>
           </View>
         </TouchableWithoutFeedback>
@@ -96,7 +96,7 @@ export default ({ y, tabs, scrollView }: HeaderProps) => {
         >
           Miss Miu Europaallee
         </Animated.Text>
-        <Icon name="heart" size={ICON_SIZE} color="white" />
+        <Feather name="heart" size={ICON_SIZE} color="white" />
       </View>
       <TabHeader {...{ y, transition, tabs, scrollView }} />
     </Animated.View>

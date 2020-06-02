@@ -18,11 +18,11 @@ import UberEats, {
 
 enableScreens();
 
-const fonts = { ...uberEatsFonts};
-const assets: number[] = [
-  ...uberEatsAssets,
-  ...componentAssets,
-];
+//const fonts = { ...uberEatsFonts};
+//const assets: number[] = [
+  //...uberEatsAssets,
+//  ...componentAssets,
+//];
 
 const AppNavigator = createAppContainer(
   createStackNavigator(

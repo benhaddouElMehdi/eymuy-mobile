@@ -1,54 +1,14 @@
 /* eslint-disable max-len */
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import { AntDesign as Icon } from "@expo/vector-icons";
+import AntDesign from 'react-native-vector-icons/AntDesign'
+
 import Animated, { Extrapolate, interpolate } from "react-native-reanimated";
 import { HEADER_IMAGE_HEIGHT } from "./HeaderImage";
 import { MIN_HEADER_HEIGHT } from "./Header";
 
 const { height } = Dimensions.get("window");
- const items = [
-  {
-    title: "Long Hongdae Nights",
-    description:
-      "Korean fried chicken glazed with Gochujang, garnished with sesame & spring onions, served with fries & Miss Miu Mayo",
-    price: "26 CHF",
-  },
-  {
-    title: "Late Sunset",
-    description:
-      "Korean fried chicken starter with dirty cheese sauce and Artisan Hot Sauce - the naughty version new, favourite",
-    price: "13.50 CHF",
-  },
-  {
-    title: "Cabbage Kimchi",
-    description: "Portion, vegan",
-    price: "5.00 CHF",
-  },
-  {
-    title: "Namur by Pieces",
-    description:
-      "Homemade steamed dim sum with minced pork, shiitake mushrooms and smokey honey flavour, four pcs",
-    price: "10.50 CHF",
-  },
-  {
-    title: "Silim Lights",
-    description:
-      "Beef Bibimbap, sesame oil, rice, beans, spinach, carrots, spring onions, Chinese cabbage, shiitake mushrooms, roasted onions and egg",
-    price: "26.50 CHF",
-  },
-];
 
-
-const menu = [
- { name: "Starters", items },
- { name: "Order Again", items },
- { name: "Picked for you", items },
- { name: "Gimbap Sushi", items },
-];
-
-
-export const defaultTabs = menu.map(({ name }) => ({ name, anchor: 0 }));
 const styles = StyleSheet.create({
   section: {
     padding: 16,
@@ -121,6 +81,11 @@ interface ContentProps {
 
 export default ({ y, onMeasurement, catalog }: ContentProps) => {
 
+  let menu = []
+   for (let i = 0; i < catalog.menus.length; i++) {
+        menu.push({ name : catalog.menus[i].label  , items : catalog.menus[i].items })
+     }
+
   const opacity = interpolate(y, {
     inputRange: [
       HEADER_IMAGE_HEIGHT - MIN_HEADER_HEIGHT - 100,
@@ -137,7 +102,7 @@ export default ({ y, onMeasurement, catalog }: ContentProps) => {
         <View style={styles.info}>
           <Text style={styles.text}>Opens at 11:30 AM</Text>
           <View style={styles.ratings}>
-            <Icon name="star" color="#f4c945" size={24} style={styles.icon} />
+            <AntDesign name="star" color="#f4c945" size={24} style={styles.icon} />
             <Text style={styles.text}>(186)</Text>
           </View>
         </View>
@@ -162,9 +127,9 @@ export default ({ y, onMeasurement, catalog }: ContentProps) => {
           }) => onMeasurement(index, { name, anchor: anchor - 142 })}
         >
           <Text style={styles.title1}>{name}</Text>
-          {menuItems.map(({ title, description, price }, j) => (
+          {menuItems.map(({ reference, description, price }, j) => (
             <View style={styles.item} key={j}>
-              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.title}>{reference}</Text>
               <Text style={styles.description} numberOfLines={2}>
                 {description}
               </Text>
@@ -176,5 +141,4 @@ export default ({ y, onMeasurement, catalog }: ContentProps) => {
       <View style={{ height }} />
     </>
   );
-
 };
